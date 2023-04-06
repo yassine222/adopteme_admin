@@ -2,8 +2,8 @@
 
 import 'package:adopteme_admin/services/authService.dart';
 import 'package:adopteme_admin/update_profile_page.dart';
-import 'package:adopteme_admin/user_page2.dart';
-import 'package:adopteme_admin/users_page.dart';
+import 'package:adopteme_admin/user_page.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +137,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     color: Theme.of(context).colorScheme.secondary),
               ),
               onTap: () {
-                Get.to(UsersListPage2());
+                Get.to(UsersListPage());
               },
             ),
             Divider(

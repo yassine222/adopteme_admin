@@ -1,5 +1,4 @@
 import 'package:adopteme_admin/home_page.dart';
-import 'package:adopteme_admin/home_page2.dart';
 import 'package:adopteme_admin/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

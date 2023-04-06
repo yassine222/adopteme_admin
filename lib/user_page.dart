@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class UsersListPage2 extends StatefulWidget {
-  const UsersListPage2({super.key});
+class UsersListPage extends StatefulWidget {
+  const UsersListPage({super.key});
 
   @override
-  State<UsersListPage2> createState() => _UsersListPage2State();
+  State<UsersListPage> createState() => _UsersListPageState();
 }
 
-class _UsersListPage2State extends State<UsersListPage2> {
+class _UsersListPageState extends State<UsersListPage> {
   CollectionReference users =
       FirebaseFirestore.instance.collection('UserProfile');
 
