@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:adopteme_admin/post_page.dart';
 import 'package:adopteme_admin/services/authService.dart';
 import 'package:adopteme_admin/update_profile_page.dart';
 import 'package:adopteme_admin/user_page.dart';
@@ -156,7 +157,9 @@ class _MyDrawerState extends State<MyDrawer> {
                     fontSize: _drawerFontSize,
                     color: Theme.of(context).colorScheme.secondary),
               ),
-              onTap: () {},
+              onTap: () {
+                Get.to(PostListPage());
+              },
             ),
             Divider(
               color: Theme.of(context).primaryColor,
