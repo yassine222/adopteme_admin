@@ -85,28 +85,9 @@ class _HomeState extends State<Home> {
 
     FirebaseFirestore.instance
         .collection('Tips')
-        .doc('CatsCare')
-        .collection('post')
         .get()
         .then((QuerySnapshot querySnapshot) {
-      catsArticle = querySnapshot.docs.length;
-    });
-    FirebaseFirestore.instance
-        .collection('Tips')
-        .doc('DogCare')
-        .collection('post')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      dogsArticle = querySnapshot.docs.length;
-    });
-    FirebaseFirestore.instance
-        .collection('Tips')
-        .doc('OtherCare')
-        .collection('post')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      otherArticle = querySnapshot.docs.length;
-      totalArticle = otherArticle! + catsArticle! + dogsArticle!;
+      totalArticle = querySnapshot.docs.length;
     });
 
     FirebaseFirestore.instance

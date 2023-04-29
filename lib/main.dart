@@ -1,3 +1,4 @@
+import 'package:adopteme_admin/addBlog.dart';
 import 'package:adopteme_admin/home_page.dart';
 import 'package:adopteme_admin/login_screen.dart';
 import 'package:adopteme_admin/post_page.dart';
@@ -11,14 +12,15 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      options: const FirebaseOptions(
-    apiKey: "AIzaSyDEQtT7SbNmSjzMg2T6S41q5RHHYdsjvyw",
-    appId: "1:316956774805:web:a4bd7adfbe10a1dbbee69c",
-    authDomain: "rescuemeapp-d0e4b.firebaseapp.com",
-    messagingSenderId: "316956774805",
-    projectId: "rescuemeapp-d0e4b",
-    storageBucket: "rescuemeapp-d0e4b.appspot.com",
-  ));
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyDEQtT7SbNmSjzMg2T6S41q5RHHYdsjvyw",
+      appId: "1:316956774805:web:a4bd7adfbe10a1dbbee69c",
+      authDomain: "rescuemeapp-d0e4b.firebaseapp.com",
+      messagingSenderId: "316956774805",
+      projectId: "rescuemeapp-d0e4b",
+      storageBucket: "rescuemeapp-d0e4b.appspot.com",
+    ),
+  );
   runApp(const MyApp());
 }
 

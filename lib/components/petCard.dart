@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 
@@ -14,6 +14,8 @@ class PetCardWidget extends StatelessWidget {
   final Function onActivateDiactivatePressed;
   final Function onApprovePressed;
   final Function onDisApprovePressed;
+  final bool isActive;
+  final bool isAdopted;
 
   final String status;
 
@@ -31,6 +33,8 @@ class PetCardWidget extends StatelessWidget {
     required this.onApprovePressed,
     required this.status,
     required this.onDisApprovePressed,
+    required this.isActive,
+    required this.isAdopted,
   }) : super(key: key);
 
   @override
@@ -127,28 +131,73 @@ class PetCardWidget extends StatelessWidget {
                 ? Column(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.done_sharp, color: Colors.green),
-                        onPressed: () => onDeletePressed(),
+                        icon: Icon(Icons.thumb_up, color: Colors.green),
+                        onPressed: () => onApprovePressed(),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
-                        onPressed: () => onDeletePressed(),
+                        icon: Icon(Icons.thumb_down, color: Colors.red),
+                        onPressed: () => onDisApprovePressed(),
                       ),
                     ],
                   )
-                : Column(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
-                        onPressed: () => onDeletePressed(),
+                : isAdopted && isActive == false
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Adopted",
+                            style: TextStyle(color: Colors.deepPurple),
+                          ),
+                          Icon(
+                            Icons.check_circle,
+                            color: Colors.deepPurple,
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: isActive
+                                      ? Text('Diactivate Post')
+                                      : Text('Activate'),
+                                  content: isActive
+                                      ? Text(
+                                          'Are you sure you want to Diactivate this Post ?')
+                                      : Text(
+                                          'Are you sure you want to Acivate this Post'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('No'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Yes'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            icon: Icon(
+                              isActive
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: isActive ? Colors.green : Colors.red,
+                            ),
+                            label: isActive
+                                ? Text("Diactivate Post")
+                                : Text("Activate Post"),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 8.0),
-                      IconButton(
-                        icon: Icon(Icons.power_settings_new, color: Colors.red),
-                        onPressed: () => onActivateDiactivatePressed(),
-                      ),
-                    ],
-                  ),
           ],
         ),
       ),

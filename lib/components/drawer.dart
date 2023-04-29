@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:adopteme_admin/addBlog.dart';
+import 'package:adopteme_admin/articleList.dart';
 import 'package:adopteme_admin/post_page.dart';
 import 'package:adopteme_admin/services/authService.dart';
 import 'package:adopteme_admin/update_profile_page.dart';
@@ -55,59 +57,59 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               child: FutureBuilder<DocumentSnapshot>(
-                  future: admin.doc(user!.uid).get(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text("Something went wrong");
-                    }
+                future: admin.doc(user!.uid).get(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text("Something went wrong");
+                  }
 
-                    if (snapshot.hasData && !snapshot.data!.exists) {
-                      return Text("Document does not exist");
-                    }
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      Map<String, dynamic> data =
-                          snapshot.data!.data() as Map<String, dynamic>;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundImage:
-                                    NetworkImage("${data['image']}"),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.edit, color: Colors.white),
-                                onPressed: () {
-                                  Get.to(UpdateProfile());
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            "${data['fullname']}",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                  if (snapshot.hasData && !snapshot.data!.exists) {
+                    return Text("Document does not exist");
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    Map<String, dynamic> data =
+                        snapshot.data!.data() as Map<String, dynamic>;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 40,
+                              backgroundImage: NetworkImage("${data['image']}"),
                             ),
-                          ),
-                          Text(
-                            "${data['email']}",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white70,
+                            IconButton(
+                              icon: Icon(Icons.edit, color: Colors.white),
+                              onPressed: () {
+                                Get.to(() => UpdateProfile());
+                              },
                             ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "${data['fullname']}",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                        ],
-                      );
-                    }
-                    return CircularProgressIndicator.adaptive();
-                  }),
+                        ),
+                        Text(
+                          "${data['email']}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return CircularProgressIndicator.adaptive();
+                },
+              ),
             ),
             ListTile(
               leading: Icon(Icons.home,
@@ -138,7 +140,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     color: Theme.of(context).colorScheme.secondary),
               ),
               onTap: () {
-                Get.to(UsersListPage());
+                Get.to(() => UsersListPage());
               },
             ),
             Divider(
@@ -158,7 +160,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     color: Theme.of(context).colorScheme.secondary),
               ),
               onTap: () {
-                Get.to(PostListPage());
+                Get.to(() => PostListPage());
               },
             ),
             Divider(
@@ -177,7 +179,9 @@ class _MyDrawerState extends State<MyDrawer> {
                     fontSize: _drawerFontSize,
                     color: Theme.of(context).colorScheme.secondary),
               ),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => ArticleListPage());
+              },
             ),
             Divider(
               color: Theme.of(context).primaryColor,
@@ -195,7 +199,9 @@ class _MyDrawerState extends State<MyDrawer> {
                     fontSize: _drawerFontSize,
                     color: Theme.of(context).colorScheme.secondary),
               ),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => MakeTips());
+              },
             ),
             Divider(
               color: Theme.of(context).primaryColor,

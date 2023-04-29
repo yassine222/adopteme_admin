@@ -79,13 +79,23 @@ class _PostListPageState extends State<PostListPage> {
                 showInactivePost == false &&
                 waitList == false &&
                 isAdopted == false
-            ? posts.orderBy("createdAt", descending: sortPost).snapshots()
+            ? posts
+                .where("isApproved", isEqualTo: "yes")
+                .where("isadopted", isEqualTo: false)
+                .orderBy("createdAt", descending: sortPost)
+                .snapshots()
             : searchedRegion != ""
                 ? posts.where("owner", isEqualTo: searchedRegion).snapshots()
                 : showInactivePost == true
-                    ? posts.where("isactive", isEqualTo: false).snapshots()
+                    ? posts
+                        .where("isactive", isEqualTo: false)
+                        .where("isApproved", isEqualTo: "yes")
+                        .snapshots()
                     : showActivePost == true
-                        ? posts.where("isactive", isEqualTo: true).snapshots()
+                        ? posts
+                            .where("isactive", isEqualTo: true)
+                            .where("isApproved", isEqualTo: "yes")
+                            .snapshots()
                         : waitList == true
                             ? posts
                                 .where("isApproved", isEqualTo: "waiting")
@@ -94,9 +104,10 @@ class _PostListPageState extends State<PostListPage> {
                             : isAdopted == true
                                 ? posts
                                     .where("isadopted", isEqualTo: true)
+                                    .where("isApproved", isEqualTo: "yes")
                                     .snapshots()
                                 : posts
-                                    .orderBy("createdAt", descending: false)
+                                    .orderBy("createdAt", descending: sortPost)
                                     .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -241,10 +252,16 @@ class _PostListPageState extends State<PostListPage> {
                                 phoneOwner: document["phone"],
                                 id: document["docID"],
                                 status: document["isApproved"],
+                                isActive: document["isactive"],
+                                isAdopted: document["isadopted"],
                                 onDeletePressed: () {},
                                 onActivateDiactivatePressed: () {},
-                                onDisApprovePressed: () {},
-                                onApprovePressed: () {});
+                                onDisApprovePressed: () {
+                                  disApprovePost(document.id);
+                                },
+                                onApprovePressed: () {
+                                  approvePost(document.id);
+                                });
                           }).toList(),
                         ),
                 ),
@@ -254,5 +271,19 @@ class _PostListPageState extends State<PostListPage> {
         },
       ),
     );
+  }
+
+  Future<void> approvePost(String postId) {
+    return FirebaseFirestore.instance
+        .collection('UserPost')
+        .doc(postId)
+        .update({'isApproved': "yes"});
+  }
+
+  Future<void> disApprovePost(String postId) {
+    return FirebaseFirestore.instance
+        .collection('UserPost')
+        .doc(postId)
+        .update({'isApproved': "no"});
   }
 }
