@@ -341,17 +341,10 @@ class _ArticleListPageState extends State<ArticleListPage> {
     );
   }
 
-  Future<void> approvePost(String postId) {
+  Future<void> delletePost(String postId) {
     return FirebaseFirestore.instance
         .collection('UserPost')
         .doc(postId)
         .update({'isApproved': "yes"});
-  }
-
-  Future<void> disApprovePost(String postId) {
-    return FirebaseFirestore.instance
-        .collection('UserPost')
-        .doc(postId)
-        .update({'isApproved': "no"});
   }
 }

@@ -2,11 +2,13 @@
 
 import 'dart:io';
 
+import 'package:adopteme_admin/articleList.dart';
 import 'package:adopteme_admin/home_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:get/get.dart';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -252,13 +254,15 @@ class _MakeTipsState extends State<MakeTips> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 addArticle(
-                                    Timestamp.now(),
-                                    _controller,
-                                    titleControlller.text,
-                                    authorController.text,
-                                    isPopular,
-                                    imageurl,
-                                    categorie);
+                                        Timestamp.now(),
+                                        _controller,
+                                        titleControlller.text,
+                                        authorController.text,
+                                        isPopular,
+                                        imageurl,
+                                        categorie)
+                                    .then((value) =>
+                                        Get.to((() => ArticleListPage())));
                               }
                             },
                             child: const Text(

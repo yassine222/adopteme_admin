@@ -35,6 +35,10 @@ class ArticleCard extends StatelessWidget {
     }
   }
 
+  Future<void> deleteBlog(String postId) {
+    return FirebaseFirestore.instance.collection('Tips').doc(postId).delete();
+  }
+
   @override
   Widget build(BuildContext context) {
     DateTime date = (createdAt).toDate();
@@ -174,6 +178,7 @@ class ArticleCard extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
+                              deleteBlog(snapshot.id);
                               Navigator.pop(context);
                             },
                             child: Text('Yes'),
